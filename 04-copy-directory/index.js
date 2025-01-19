@@ -8,7 +8,7 @@ async function copyFiles() {
     const pasteFile = '04-copy-directory/files-copy/' + file;
     await fs.copyFile(copyFile, pasteFile);
   }
-  console.log('Данные успешно скопировались!');
+  console.log('The data has been copied successfully!');
 }
 
 copyFiles();

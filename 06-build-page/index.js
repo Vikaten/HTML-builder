@@ -20,7 +20,7 @@ async function replaceLayout() {
     .replace('{{footer}}', footer)
     .replace('{{articles}}', articles);
   await fs.writeFile('./06-build-page/project-dist/index.html', template);
-  console.log('Данные в template.html успешно записались!');
+  console.log('Data in template.html you signed up successfully!');
 }
 
 async function mergeStyles() {
@@ -38,7 +38,7 @@ async function mergeStyles() {
     }
   }
   await fs.writeFile('06-build-page/project-dist/style.css', bundle);
-  console.log('Стили успешно собраны!');
+  console.log('Styles have been successfully bundled!');
 }
 
 const path = require('path');
@@ -55,7 +55,7 @@ async function copyFolder(source, destination) {
       await fs.copyFile(sourcePath, destinationPath);
     }
   }
-  console.log('Данные успешно скопировались');
+  console.log('The data has been copied successfully');
 }
 
 async function buildPage() {

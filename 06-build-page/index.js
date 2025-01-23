@@ -14,11 +14,16 @@ async function replaceLayout() {
     '06-build-page/components/articles.html',
     'utf-8',
   );
+  const about = await fs.readFile(
+    '06-build-page/components/about.html',
+    'utf-8',
+  );
   let template = await fs.readFile('06-build-page/template.html', 'utf-8');
   template = template
     .replace('{{header}}', header)
     .replace('{{footer}}', footer)
-    .replace('{{articles}}', articles);
+    .replace('{{articles}}', articles)
+    .replace('{{about}}', about);
   await fs.writeFile('./06-build-page/project-dist/index.html', template);
   console.log('Data in template.html you signed up successfully!');
 }

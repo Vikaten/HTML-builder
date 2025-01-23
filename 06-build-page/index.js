@@ -2,29 +2,20 @@ const fs = require('fs').promises;
 
 async function replaceLayout() {
   await fs.mkdir('./06-build-page/project-dist', { recursive: true });
-  const header = await fs.readFile(
-    '06-build-page/components/header.html',
-    'utf-8',
-  );
-  const footer = await fs.readFile(
-    '06-build-page/components/footer.html',
-    'utf-8',
-  );
-  const articles = await fs.readFile(
-    '06-build-page/components/articles.html',
-    'utf-8',
-  );
-  const about = await fs.readFile(
-    '06-build-page/components/about.html',
-    'utf-8',
-  );
   let template = await fs.readFile('06-build-page/template.html', 'utf-8');
-  template = template
-    .replace('{{header}}', header)
-    .replace('{{footer}}', footer)
-    .replace('{{articles}}', articles)
-    .replace('{{about}}', about);
-  await fs.writeFile('./06-build-page/project-dist/index.html', template);
+  const templateDir = './06-build-page/components';
+  const templateFiles = await fs.readdir(templateDir);
+  for (let file of templateFiles) {
+    const extname = path.extname(file);
+    const basename = path.basename(file, extname);
+    const componentContent = await fs.readFile(
+      path.join(templateDir, file),
+      'utf-8',
+    );
+    const ph = `{{${basename}}}`;
+    template = template.replace(new RegExp(ph, 'g'), componentContent);
+    await fs.writeFile('./06-build-page/project-dist/index.html', template);
+  }
   console.log('Data in template.html you signed up successfully!');
 }
 
